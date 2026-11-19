@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Admin</title>
+<style>
+:root{--bg:#EEF3FB;--card:#fff;--line:#C5D3EA;--ink:#14213D;--mute:#5B6B8C;--acc:#4A6FA5;--ser:#91A8D0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",system-ui,sans-serif}
+header{background:var(--ink);color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:20px}header a{color:var(--ser)}
+main{max-width:900px;margin:24px auto;padding:0 16px;display:grid;gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+h2{margin:0 0 10px;font-size:18px}
+button{font:inherit;border:0;border-radius:99px;padding:10px 20px;background:var(--acc);color:#fff;cursor:pointer}
+button.ghost{background:none;color:var(--acc);border:1.5px solid var(--acc)}
+button.del{background:#B3402F}
+input,textarea,select{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:#fff;color:var(--ink)}
+label{display:block;font-weight:600;margin:14px 0 4px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{background:#fff;color:var(--acc);border:1.5px solid var(--line)}
+.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.checks label{display:flex;gap:6px;align-items:center;font-weight:400;margin:0;border:1.5px solid var(--line);padding:6px 12px;border-radius:99px}
+.checks input{width:auto}
+.row{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.row img{width:64px;height:64px;object-fit:cover;object-position:top;border-radius:10px;background:var(--bg)}
+.row .t{flex:1;min-width:0}.row small{color:var(--mute)}
+#msg{position:sticky;top:8px;z-index:5;padding:12px 18px;border-radius:12px;background:var(--acc);color:#fff;display:none}
+.pane{display:none}.pane.on{display:block}
+.note{color:var(--mute);font-size:14px}
+#warn{display:none;background:#FFF3D6;border:1px solid #E5C26A;padding:14px;border-radius:12px;margin-top:12px}
+#app{display:none}
+</style>
+</head>
+<body>
+<header><h1>Portfolio Admin</h1><a href="index.html">← View my site</a></header>
+<main>
+<div id="msg" role="status"></div>
+
+<section class="card">
+  <h2>Step 1: Connect your website folder</h2>
+  <p class="note">Choose the <b>portfolio-site</b> folder (the one containing index.html). Your new work and settings are saved straight into it. Nothing is uploaded anywhere.</p>
+  <button id="connect">Choose folder</button> <span id="status" class="note"></span>
+  <div id="warn">This page needs <b>Google Chrome or Microsoft Edge on a computer</b>. Your current browser can't save into folders.</div>
+</section>
+
+<section class="card" id="app">
+  <div class="tabs">
+    <button class="on" data-p="add">Add or edit work</button>
+    <button data-p="mine">My work</button>
+    <button data-p="inbox">Messages &amp; settings</button>
+  </div>
+
+  <div class="pane on" id="p-add">
+    <form id="f">
+      <label for="t">Project title</label><input id="t" required placeholder="e.g. Glow Essentials Logo">
+      <label for="cat">Category (designs with the same category form one puzzle)</label><input id="cat" list="catlist" required placeholder="e.g. Branding"><datalist id="catlist"><option value="Branding"><option value="Brochures"><option value="Flyers &amp; Banners"><option value="Social Media"><option value="Photo Editing"><option value="Posters"><option value="Packaging"></datalist>
+      <label for="desc">Short description</label><textarea id="desc" rows="3" placeholder="What was the project and what did you do?"></textarea>
+      <div id="skills" hidden></div>
+      <label for="img">Image (JPG, PNG or WebP; I resize it for the web automatically)</label><input id="img" type="file" accept="image/*">
+      <p class="note" id="editnote"></p>
+      <button type="submit" id="save">Add to my portfolio</button>
+      <button type="button" class="ghost" id="cancel" style="display:none">Cancel edit</button>
+    </form>
+  </div>
+
+  <div class="pane" id="p-mine"><div id="list"></div></div>
+
+  <div class="pane" id="p-inbox">
+    <h2>Where messages from "Let's work together" go</h2>
+    <p class="note">Your website is a static site, so messages need an inbox service. The easiest free option is <b>Formspree</b> (formspree.io): it stores every submission in a dashboard and emails you.</p>
+    <ol class="note">
+      <li>Create a free account at formspree.io and click <b>New form</b>.</li>
+      <li>Copy the form link (it looks like https://formspree.io/f/abcdwxyz).</li>
+      <li>Paste it below, add your email and the dashboard link, then Save.</li>
+    </ol>
+    <label for="cpuz">Picture the home-page puzzle is made from</label><select id="cpuz"><option value="work">A collage of my work</option><option value="logo">My logo</option></select>
+    <label for="cendpoint">Form link</label><input id="cendpoint" placeholder="https://formspree.io/f/...">
+    <label for="cemail">My email (backup if the form link fails)</label><input id="cemail" type="email" placeholder="you@example.com">
+    <label for="cinbox">Dashboard link (to read your messages)</label><input id="cinbox" placeholder="https://formspree.io/forms/...">
+    <p><button id="savecfg">Save settings</button> <button class="ghost" id="openinbox">Open my inbox</button></p>
+    <p class="note">After saving, upload your folder to your host again so the live site gets the new settings.</p>
+  </div>
+</section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+const SK=['Adobe Photoshop','Adobe Illustrator','Canva','Branding','Typography','Layout Design'];
+let dir=null,works=[],cfg={},editId=null;
+function say(t,bad){const m=$('#msg');m.textContent=t;m.style.display='block';m.style.background=bad?'#B3402F':'';clearTimeout(say.h);say.h=setTimeout(()=>m.style.display='none',7000)}
+if(!window.showDirectoryPicker)$('#warn').style.display='block';
+$('#skills').innerHTML=SK.map(s=>`<label><input type="checkbox" value="${s}">${s}</label>`).join('');
+async function rd(name){try{return await (await (await dir.getFileHandle(name)).getFile()).text()}catch(e){return null}}
+async function wr(name,data,sub){let d=dir;if(sub)d=await dir.getDirectoryHandle(sub,{create:true});const w=await (await d.getFileHandle(name,{create:true})).createWritable();await w.write(data);await w.close()}
+const parse=(t,k)=>{const m=t&&t.match(new RegExp('window\\.'+k+'\\s*=\\s*([\\s\\S]*?);\\s*$'));try{return m?JSON.parse(m[1]):null}catch(e){return null}};
+const saveWorks=()=>wr('works.js','window.WORKS = '+JSON.stringify(works,null,2)+';\n');
+const saveCfg=()=>wr('config.js','window.SITE = '+JSON.stringify(cfg,null,2)+';\n');
+
+$('#connect').onclick=async()=>{
+  try{dir=await showDirectoryPicker({mode:'readwrite'});await dir.getFileHandle('index.html')}
+  catch(e){dir=null;return say(e.name==='AbortError'?'No folder chosen.':'That folder has no index.html. Choose your portfolio-site folder.',true)}
+  works=parse(await rd('works.js'),'WORKS')||[];cfg=parse(await rd('config.js'),'SITE')||{};
+  $('#status').textContent='Connected: '+dir.name;$('#app').style.display='block';fillCfg();list();
+};
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id==='p-'+b.dataset.p))});
+
+async function prep(file){
+  const bm=await createImageBitmap(file),s=Math.min(1,1400/bm.width),c=document.createElement('canvas');
+  c.width=Math.round(bm.width*s);c.height=Math.round(bm.height*s);
+  const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(bm,0,0,c.width,c.height);
+  return {blob:await new Promise(r=>c.toBlob(r,'image/jpeg',.82)),ratio:bm.width/bm.height};
+}
+function reset(){$('#f').reset();editId=null;$('#editnote').textContent='';$('#save').textContent='Add to my portfolio';$('#cancel').style.display='none'}
+$('#cancel').onclick=reset;
+$('#f').onsubmit=async e=>{
+  e.preventDefault();if(!dir)return say('Connect your folder first.',true);
+  const title=$('#t').value.trim(),file=$('#img').files[0],w=editId?works.find(x=>x.id===editId):null;
+  if(!w&&!file)return say('Please choose an image for this work.',true);
+  const data={title,category:$('#cat').value.trim(),desc:$('#desc').value.trim(),skills:[...document.querySelectorAll('#skills input:checked')].map(i=>i.value)};
+  try{
+    if(file){
+      const {blob,ratio}=await prep(file);
+      const name=(title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'work')+'-'+Date.now()+'.jpg';
+      await wr(name,blob,'images');
+      if(w&&w.img){try{await (await dir.getDirectoryHandle('images')).removeEntry(w.img.split('/').pop())}catch(x){}}
+      data.img='images/'+name;data.crop=ratio<.8?'top':(ratio>2?'contain':'');
+    }
+    if(w)Object.assign(w,data);else works.unshift({id:Date.now(),...data});
+    await saveWorks();
+    say((w?'Updated':'Added')+'! Open index.html to see it. Upload the folder to your host to make it live.');
+    reset();list();
+  }catch(err){say('Could not save: '+err.message,true)}
+};
+async function list(){
+  const box=$('#list');box.innerHTML=works.length?'':'<p class="note">No work yet. Add your first piece in the first tab.</p>';
+  for(const [i,w] of works.entries()){
+    const r=document.createElement('div');r.className='row';
+    r.innerHTML='<img alt=""><div class="t"><b></b><br><small></small></div><button class="ghost" data-a="up" title="Move up">↑</button><button class="ghost" data-a="down" title="Move down">↓</button><button class="ghost" data-a="edit">Edit</button><button class="del" data-a="del">Delete</button>';
+    r.querySelector('b').textContent=w.title;r.querySelector('small').textContent=[w.category,(w.skills||[]).join(', ')].filter(Boolean).join('  |  ');
+    box.append(r);
+    r.querySelectorAll('button').forEach(b=>b.onclick=async()=>{
+      const a=b.dataset.a;
+      if(a==='up'&&i>0)[works[i-1],works[i]]=[works[i],works[i-1]];
+      else if(a==='down'&&i<works.length-1)[works[i+1],works[i]]=[works[i],works[i+1]];
+      else if(a==='del'){if(!confirm('Delete "'+w.title+'"? This cannot be undone.'))return;
+        try{await (await dir.getDirectoryHandle('images')).removeEntry(w.img.split('/').pop())}catch(x){}works.splice(i,1)}
+      else if(a==='edit'){editId=w.id;$('#t').value=w.title;$('#cat').value=w.category||'';$('#desc').value=w.desc||'';
+        document.querySelectorAll('#skills input').forEach(c=>c.checked=(w.skills||[]).includes(c.value));
+        $('#editnote').textContent='Editing "'+w.title+'". Choose a new image only if you want to replace the current one.';
+        $('#save').textContent='Save changes';$('#cancel').style.display='inline-block';document.querySelector('.tabs button[data-p=add]').click();scrollTo(0,0);return}
+      else return;
+      try{await saveWorks();say('Saved.');list()}catch(err){say('Could not save: '+err.message,true)}
+    });
+    try{const f=await (await (await dir.getDirectoryHandle('images')).getFileHandle(w.img.split('/').pop())).getFile();r.querySelector('img').src=URL.createObjectURL(f)}catch(x){}
+  }
+}
+function fillCfg(){$('#cpuz').value=cfg.puzzle||'work';$('#cendpoint').value=cfg.formEndpoint||'';$('#cemail').value=cfg.email||'';$('#cinbox').value=cfg.inboxUrl||''}
+$('#savecfg').onclick=async()=>{
+  cfg={...cfg,email:$('#cemail').value.trim(),formEndpoint:$('#cendpoint').value.trim(),inboxUrl:$('#cinbox').value.trim(),puzzle:$('#cpuz').value};
+  try{await saveCfg();say('Settings saved. Upload your folder to your host to make them live.')}catch(err){say('Could not save: '+err.message,true)}
+};
+$('#openinbox').onclick=()=>cfg.inboxUrl?open(cfg.inboxUrl,'_blank','noopener'):say('Add your dashboard link first and press Save.',true);
+</script>
+</body>
+</html>

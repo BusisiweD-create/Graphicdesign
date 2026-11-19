@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Busisiwe – Graphic Designer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div id="glow"></div>
+
+<header><div class="nav">
+  <a class="logo" href="#home" aria-label="Home">B<sup>✦</sup></a>
+  <nav id="nav" aria-label="Main"><ul>
+    <li><a href="#home" class="on">🏠 Home</a></li>
+    <li><a href="#about">👤 About</a></li>
+    <li><a href="#portfolio">▦ Featured Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">✉ Contact</a></li>
+  </ul></nav>
+  <div class="tools">
+    <div class="theme" role="group" aria-label="Theme"><button class="sun" aria-label="Light mode">☀</button><button class="moon" aria-label="Dark mode">☾</button></div>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</div></header>
+
+<main>
+<section class="hero" id="home">
+  <div>
+    <div class="hi">Hi, I’m</div>
+    <h1>Busisiwe<svg viewBox="0 0 120 30" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><path d="M4 24C40 8 80 6 116 8"/><path d="M20 28C50 16 80 14 108 16" opacity=".6"/></svg></h1>
+    <div class="role" id="role" aria-live="off">Graphic Designer</div>
+    <p class="lead">I create clean, modern and impactful designs that bring ideas to life. <span id="heart" style="cursor:pointer;color:var(--accent)" title="Click me">♡</span></p>
+    <div class="btns"><a class="btn p" href="#portfolio">View My Work →</a><a class="btn" href="#contact">✉ Get in Touch</a></div>
+  </div>
+  <div class="stage" id="stage">
+    <div class="app ps" data-fx>Ps</div><div class="app ai" data-fx>Ai</div><div class="app cv" data-fx>Canva</div>
+    <div class="spark">✦</div>
+    <div class="laptop" id="laptop"><div class="lid"><i></i></div><div class="base"></div><div class="cup">♛</div></div>
+  </div>
+</section>
+
+<section class="stack">
+  <div class="panel rev" id="about">
+    <h2><span>◉</span>About Me</h2>
+    <p style="margin:0 0 10px;color:var(--mute)">I’m a passionate Graphic Designer who loves turning ideas into creative visuals. I enjoy branding, digital design and creating designs that make an impact.</p>
+    <div class="more" id="more"><p>I work with small businesses and creators on brochures, banners, logos and photo composites. I start every project with a short conversation and a moodboard, so the result feels like you.</p></div>
+    <button class="link" id="learn">Learn More →</button>
+  </div>
+  </section>
+
+<section class="work" id="portfolio">
+  <div class="rev"><h2>Featured Work</h2><p style="color:var(--mute);margin:8px 0 0">All my designs, pieced together in one puzzle. Click it to break it open and choose a category.</p></div>
+  <div class="pzstage rev">
+    <button class="big" id="bigpz" aria-label="Break the puzzle to explore my work"><div id="bigholder"></div><div class="bighint"><span>🧩</span> Click the puzzle to break it open</div></button>
+    <div class="views" id="views" hidden>
+      <div class="vbar"><button class="chip" id="vback" hidden>← All categories</button><h3 id="vtitle">Pick a category</h3><button class="chip" id="rebuild">↻ Rebuild the puzzle</button></div>
+      <div id="vbody"></div>
+    </div>
+  </div>
+</section>
+<section class="stack">
+  <div class="panel rev" id="skills">
+    <h2><span>☆</span>My Skills</h2>
+    <div class="skills" id="skillList">
+      <button class="sk" aria-pressed="true" data-l="92" data-t="Photo retouching, composites and mockups."><b>Ps</b>Adobe Photoshop</button>
+      <button class="sk" aria-pressed="false" data-l="88" data-t="Logos, vector illustration and icon sets."><b>Ai</b>Adobe Illustrator</button>
+      <button class="sk" aria-pressed="false" data-l="95" data-t="Social posts, presentations and quick brand kits."><b>C</b>Canva</button>
+      <button class="sk" aria-pressed="false" data-l="85" data-t="Logo systems, palettes and brand guidelines."><b>◔</b>Branding</button>
+      <button class="sk" aria-pressed="false" data-l="80" data-t="Type pairing, hierarchy and lettering."><b>T</b>Typography</button>
+      <button class="sk" aria-pressed="false" data-l="90" data-t="Grids, spacing and print-ready layouts."><b>◫</b>Layout Design</button>
+    </div>
+    <div class="meter"><i id="bar"></i></div>
+    <p id="skillTxt"></p>
+  
+  </div>
+
+</section>
+
+<section class="panel rev" id="contact">
+  <h2 style="justify-content:center"><span>✉</span>Let’s work together</h2>
+  <p style="color:var(--mute);margin:0">Tell me about your project and I’ll reply within two days.</p>
+  <div id="form" class="form">
+    <div><input id="n" placeholder="Your name" autocomplete="name"><div class="err" id="en"></div></div>
+    <div><input id="e" type="email" placeholder="Email address" autocomplete="email"><div class="err" id="ee"></div></div>
+    <div><textarea id="m" rows="4" placeholder="What are we making?"></textarea><div class="err" id="em"></div></div>
+    <button class="btn p" style="justify-content:center" type="button" id="send">Send message</button>
+  </div>
+</section>
+</main>
+<footer>© 2026 Busisiwe · Designed with care · <a href="admin.html" style="opacity:.6">Admin</a></footer>
+
+<dialog id="dlg"><button class="x" id="close" aria-label="Close">✕</button><div class="top" id="dtop"></div><div class="body"><h3 id="dt"></h3><p id="dd" style="color:var(--mute)"></p><a class="btn p" href="#contact" id="dgo">Start a similar project</a></div></dialog>
+<div id="toast" role="status"></div>
+
+<script src="config.js"></script>
+<script src="works.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
